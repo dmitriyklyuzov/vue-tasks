@@ -16,7 +16,7 @@ export default {
     },
     methods: {
         onDelete(id) {
-            console.log(id)
+            this.$emit('delete-task', id)
         }
     }
 }
