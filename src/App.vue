@@ -29,12 +29,34 @@ export default {
       const res = await fetch('api/tasks')
       return res.json()
     },
-    addTask(newTask) {
-      this.tasks = {...this.tasks, newTask}
-      this.showForm = false
+    async addTask(task) {
+      const res = await fetch('api/tasks', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(task)
+      })
+      if (res.status == '201') {
+        const data = await res.json()
+        this.tasks = [...this.tasks, data]
+        this.showForm = false
+      } else {
+        console.log('Something went wrong while adding a task')
+      }
     },
-    deleteTask(id) {
-      this.tasks = this.tasks.filter((task) => task.id != id)
+    async deleteTask(id) {
+      const res = await fetch(`api/tasks/${id}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if (res.status == '200') {
+        this.tasks = this.tasks.filter((task) => task.id != id)
+      } else {
+        console.log('Something went wrong while deleting a task')
+      }
     },
     toggleReminder(id) {
       this.tasks = this.tasks.map((task) => {

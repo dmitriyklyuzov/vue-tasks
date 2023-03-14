@@ -35,9 +35,7 @@ export default {
     emits: ['form-submit'],
     methods: {
         addTask () {
-            // TODO: make id dynamic
             const newTask = {
-                id: 4,
                 text: this.text,
                 day: this.day,
                 reminder: this.reminder
