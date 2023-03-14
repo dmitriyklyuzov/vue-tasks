@@ -58,7 +58,17 @@ export default {
         console.log('Something went wrong while deleting a task')
       }
     },
-    toggleReminder(id) {
+    async toggleReminder(id) {
+      const task = await (await fetch(`api/tasks/${id}`)).json()
+      console.log(task)
+      const res = await fetch(`api/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({...task, reminder: !task.reminder})
+      })
+
       this.tasks = this.tasks.map((task) => {
         if (task.id === id) {
           return {...task, reminder: !task.reminder}
