@@ -1,7 +1,7 @@
 <template>
     <header>
         <h1>{{ title }}</h1>
-        <Button text="Add Task" color="green"/>
+        <Button text="Add Task" color="green" @button-clicked="$emit('button-clicked')"/>
     </header>
 </template>
 
@@ -11,11 +11,13 @@ import Button from './Button'
 export default {
     name: 'Header',
     props: {
-        title: String
+        title: String,
+        buttonText: String
     },
     components: {
         Button
-    }
+    },
+    emits: ['button-clicked']
 }
 </script>
 

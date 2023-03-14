@@ -1,23 +1,27 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker"/>
+    <Header title="Task Tracker" @button-clicked="toggleAddTaskForm"/>
+    <AddTask v-if="showForm"/>
     <Tasks @delete-task="deleteTask" @toggle-reminder="toggleReminder" v-bind:tasks="tasks" />
   </div>
 </template>
 
 <script>
 import Header from './components/Header'
+import AddTask from './components/AddTask'
 import Tasks from './components/Tasks'
 
 export default {
   name: 'App',
   components: {
     Header,
+    AddTask,
     Tasks,
   },
   data() {
     return {
-      tasks: []
+      tasks: [],
+      showForm: false
     }
   },
   methods: {
@@ -32,6 +36,9 @@ export default {
           return task
         }
       });
+    },
+    toggleAddTaskForm() {
+      this.showForm = !this.showForm
     }
   },
   created() {
