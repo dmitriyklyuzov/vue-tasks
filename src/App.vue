@@ -25,6 +25,10 @@ export default {
     }
   },
   methods: {
+    async fetchTasks() {
+      const res = await fetch('api/tasks')
+      return res.json()
+    },
     addTask(newTask) {
       this.tasks = {...this.tasks, newTask}
       this.showForm = false
@@ -46,8 +50,7 @@ export default {
     }
   },
   async created() {
-    const res = await fetch('http://localhost:3000/tasks')
-    this.tasks = await res.json()
+    this.tasks = await this.fetchTasks()
   }
 }
 </script>
