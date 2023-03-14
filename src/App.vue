@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" @button-clicked="toggleAddTaskForm"/>
-    <AddTask v-if="showForm"/>
+    <AddTask v-if="showForm" @form-submit="addTask"/>
     <Tasks @delete-task="deleteTask" @toggle-reminder="toggleReminder" v-bind:tasks="tasks" />
   </div>
 </template>
@@ -25,6 +25,10 @@ export default {
     }
   },
   methods: {
+    addTask(newTask) {
+      this.tasks = {...this.tasks, newTask}
+      this.showForm = false
+    },
     deleteTask(id) {
       this.tasks = this.tasks.filter((task) => task.id != id)
     },
